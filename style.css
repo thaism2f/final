@@ -1,17 +1,34 @@
 
-/* Keep everything from the original style.css here if needed */
-/* Adjusted signup-name styling */
-.signup-name {
-  font-size: 0.8em; /* smaller so text fits */
-  white-space: normal; /* allows wrapping */
-  line-height: 1.2; /* tighter spacing for two lines */
-  word-break: break-word; /* breaks long words if needed */
-  max-height: 2.4em; /* ensures it doesn’t get too tall */
-  overflow: hidden;
+/* Calendar day box styles */
+.calendar-day {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 4px;
+    box-sizing: border-box;
+    height: 100px; /* fixed height for uniformity */
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
 
-@media (max-width: 600px) {
-  .signup-name {
-    font-size: 0.75em; /* even smaller on very small screens */
-  }
+.calendar-day span {
+    font-size: 12px; /* smaller font to fit full names */
+    line-height: 1.2;
+    max-height: 2.4em; /* allows two lines of text */
+    overflow: hidden;
+}
+
+/* Ensure all boxes have the same height */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day-number {
+    font-weight: bold;
+    margin-bottom: 2px;
 }
