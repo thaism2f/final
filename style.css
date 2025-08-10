@@ -1,45 +1,129 @@
 
-/* === Style: two-line names + slightly smaller font (safe update) ===
-   - Keeps your current layout intact
-   - Lets names wrap to two lines
-   - Slightly smaller on phones so full names fit
-*/
+/* ============================================================
+   Missionary Meals — CALENDAR CSS (Rebuild, safe drop‑in)
+   - Keeps a strict 7‑column grid on all screens
+   - Day cells are equal squares (content never changes size)
+   - Names wrap to TWO lines max; smaller on phones
+   - Uses your existing class names (.weekdays, .calendar, .day,
+     .num/.day-num, .signup/.signup-name, .calendar-nav, etc.)
+   - No JS/HTML changes required
+   ============================================================ */
 
-/* 1) Make sure day boxes keep their shape (don’t change your current grid) */
+/* --- Design tokens --- */
+:root{
+  --bg:#f6f6f7;
+  --text:#1d1d1f;
+  --muted:#6e6e73;
+  --line:#e5e5ea;
+  --card:#ffffff;
+  --ok:#117a2a;
+  --gap:8px;         /* single spacing so header & grid align */
+}
+
+/* --- Base --- */
+*{ box-sizing: border-box; }
+html{ -webkit-text-size-adjust:100%; }
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container{ max-width:980px; margin:0 auto; padding:12px 12px 24px; }
+
+.app-title,.page-title{
+  text-align:center; margin:8px 0 6px; font-weight:800;
+  font-size: clamp(22px, 5vw, 36px);
+}
+
+.subtitle{ text-align:center; color:var(--muted); margin:0 0 14px; }
+
+/* --- Top navigation buttons --- */
+.calendar-nav{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:10px 0 6px; }
+.nav-btn{
+  padding:10px 12px; border-radius:12px; border:1px solid var(--line);
+  background:#fff; font-size:16px;
+}
+
+/* --- Weekday header: EXACT same grid as calendar --- */
+.weekdays{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--gap);
+  margin: 8px 0 6px;
+  font-weight:800; color:#111;
+}
+.weekdays > div{
+  text-align:center; background:#ececec; padding:6px 0; border-radius:10px;
+}
+
+/* --- Calendar grid: 7 equal columns, fixed gap --- */
+.calendar{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--gap);
+  width: 100%;
+}
+
+/* --- Day cells: equal squares, content clipped --- */
+/* (normalize button appearance to avoid Safari quirks) */
 .day{
-  aspect-ratio: 1 / 1;
-  overflow: hidden;     /* prevent content from stretching the square */
+  display:flex; flex-direction:column; justify-content:space-between;
+  appearance:none; -webkit-appearance:none;
+  background: var(--card); border:1px solid var(--line); border-radius:14px;
+  padding:8px;
+  aspect-ratio: 1 / 1;   /* keeps perfect squares */
+  height:auto; min-height:0;
+  overflow:hidden;       /* content never stretches the box */
+  cursor:pointer; text-align:left; line-height:1.1;
+  transition: box-shadow .15s ease;
+}
+.day:focus{ outline:3px solid rgba(10,132,255,.35); outline-offset:2px; }
+.day:hover{ box-shadow:0 2px 10px rgba(0,0,0,.06); }
+.day.muted{ opacity:.55; }
+
+/* Day number (supports .num and .day-num) */
+.num,.day-num{
+  font-weight:800; font-size:15px; color:#2c6bed;
 }
 
-/* 2) Day number stays the same */
-.num, .day-num{
-  font-weight: 800;
-}
-
-/* 3) Name styling — allow two lines and shrink on mobile */
-.signup, .signup-name{
-  /* allow wrapping */
-  white-space: normal;
-  word-break: break-word;
-
-  /* show up to 2 lines */
+/* Signup name (supports .signup and .signup-name) */
+/* Show up to TWO lines; wrap long words; keep inside the square */
+.signup,.signup-name{
+  margin-top:4px; font-weight:800; color:var(--ok);
+  white-space: normal;          /* allow wrapping */
+  word-break: break-word;       /* break very long words */
+  line-height: 1.2;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2;        /* two lines only */
   -webkit-box-orient: vertical;
   overflow: hidden;
-
-  /* comfortable line height */
-  line-height: 1.2;
-
-  /* size that reads well on desktop but won’t overflow */
-  font-size: clamp(12px, 1.8vw, 16px);
-  font-weight: 800;
-  color: #117a2a; /* keep your green */
+  font-size: 14px;              /* desktop base */
 }
 
-/* 4) On small phones: nudge font down just a touch */
+/* --- Form (unchanged, included for completeness) --- */
+.signup-form{ margin-top:10px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.name-input{ flex:1 1 220px; padding:12px; font-size:16px; border-radius:10px; border:1px solid var(--line); }
+.submit-btn{ padding:12px 16px; font-size:16px; border-radius:10px; border:1px solid var(--line); background:#fff; }
+.selected-label{ font-weight:700; }
+.hint{ color:var(--muted); margin:0; }
+
+/* --- Toast --- */
+.toast{
+  position:fixed; left:50%; transform:translateX(-50%); bottom:18px;
+  background:#111; color:#fff; padding:10px 14px; border-radius:999px; font-size:14px;
+  box-shadow:0 6px 24px rgba(0,0,0,.18);
+}
+
+/* --- Responsive: slightly smaller names on small phones --- */
 @media (max-width: 600px){
-  .signup, .signup-name{
-    font-size: 13px;
-  }
+  :root{ --gap:8px; }
+  .signup,.signup-name{ font-size: 13px; }
+}
+
+@media (max-width: 380px){
+  :root{ --gap:6px; }
+  .num,.day-num{ font-size:14px; }
+  .signup,.signup-name{ font-size: 12px; }
 }
