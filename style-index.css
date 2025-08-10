@@ -1,45 +1,44 @@
-
-/* === Missionary Meals — style-index.css ===
-   Use this only on index.html.
-   Makes big centered blue buttons.
-*/
-
-:root{
-  --bg:#f6f6f7; --text:#1d1d1f; --muted:#6e6e73; --blue:#0a84ff;
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
 }
 
-*{ box-sizing:border-box; }
-html{ -webkit-text-size-adjust:100%; }
-body{
-  margin:0; min-height:100vh;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  background:var(--bg); color:var(--text);
-  display:flex; align-items:center; justify-content:center;
+h1 {
+    font-size: 2.5rem;
+    margin-top: 40px;
+    color: #333;
 }
 
-.main{
-  width:min(720px, 94%);
-  text-align:center;
+p {
+    font-size: 1.2rem;
+    color: #555;
 }
 
-h1{ font-size: clamp(28px, 6vw, 48px); margin: 0 0 8px; }
-p.lead{ color:var(--muted); font-size: clamp(16px, 3.5vw, 20px); margin: 0 0 18px; }
-
-.buttons{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap:12px;
-  margin-top: 6px;
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    gap: 20px;
 }
-a.button{
-  display:block; text-decoration:none; font-weight:800;
-  background:white; border:2px solid var(--blue);
-  color: var(--blue);
-  padding:16px 18px; border-radius:14px; font-size: clamp(18px, 4.5vw, 22px);
-  box-shadow: 0 6px 14px rgba(10,132,255,.12);
-}
-a.button:active{ transform: translateY(1px); }
 
-@media (min-width:700px){
-  .buttons{ grid-template-columns: repeat(3, 1fr); }
+.menu-button {
+    display: inline-block;
+    background-color: #007BFF;
+    color: white;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    width: 250px;
+    text-align: center;
+}
+
+.menu-button:hover {
+    background-color: #0056b3;
 }
