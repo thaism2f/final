@@ -1,34 +1,45 @@
 
-/* Calendar day box styles */
-.calendar-day {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 4px;
-    box-sizing: border-box;
-    height: 100px; /* fixed height for uniformity */
-    width: 100%;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+/* === Style: two-line names + slightly smaller font (safe update) ===
+   - Keeps your current layout intact
+   - Lets names wrap to two lines
+   - Slightly smaller on phones so full names fit
+*/
+
+/* 1) Make sure day boxes keep their shape (don’t change your current grid) */
+.day{
+  aspect-ratio: 1 / 1;
+  overflow: hidden;     /* prevent content from stretching the square */
 }
 
-.calendar-day span {
-    font-size: 12px; /* smaller font to fit full names */
-    line-height: 1.2;
-    max-height: 2.4em; /* allows two lines of text */
-    overflow: hidden;
+/* 2) Day number stays the same */
+.num, .day-num{
+  font-weight: 800;
 }
 
-/* Ensure all boxes have the same height */
-.calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 5px;
+/* 3) Name styling — allow two lines and shrink on mobile */
+.signup, .signup-name{
+  /* allow wrapping */
+  white-space: normal;
+  word-break: break-word;
+
+  /* show up to 2 lines */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  /* comfortable line height */
+  line-height: 1.2;
+
+  /* size that reads well on desktop but won’t overflow */
+  font-size: clamp(12px, 1.8vw, 16px);
+  font-weight: 800;
+  color: #117a2a; /* keep your green */
 }
 
-.calendar-day-number {
-    font-weight: bold;
-    margin-bottom: 2px;
+/* 4) On small phones: nudge font down just a touch */
+@media (max-width: 600px){
+  .signup, .signup-name{
+    font-size: 13px;
+  }
 }
