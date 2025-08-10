@@ -1,10 +1,9 @@
 
-/* === Missionary Meals — MOBILE FORCE CSS (safe, drop-in) ===
-   Purpose: phones sometimes keep old rules. This file:
-   - Forces 7-column GRID on header + calendar
-   - Makes every day a perfect square
-   - Wraps names to two lines
-   - Uses !important on layout rules to override any stale CSS
+/* === Missionary Meals — style-mobile.css ===
+   Use this on all three calendar pages.
+   - Forces 7-column grid (phones & desktop)
+   - Equal square day boxes
+   - Names wrap to two lines
 */
 
 :root{
@@ -21,17 +20,19 @@ body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI"
 .calendar-nav{ display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin:10px 0 6px; }
 .nav-btn{ padding:10px 12px; border-radius:12px; border:1px solid var(--line); background:#fff; font-size:16px; }
 
-/* Header row — FORCE 7-col grid */
+/* Weekday header — GRID */
 .weekdays{
   display:grid !important;
   grid-template-columns: repeat(7, 1fr) !important;
   gap: var(--gap) !important;
-  margin:8px 0 6px !important;
+  margin: 8px 0 6px !important;
   font-weight:800; color:#111;
 }
-.weekdays > div{ text-align:center; background:#ececec; padding:6px 0; border-radius:10px; }
+.weekdays > div{
+  text-align:center; background:#ececec; padding:6px 0; border-radius:10px;
+}
 
-/* Calendar grid — FORCE 7-col grid */
+/* Calendar grid — GRID */
 .calendar{
   display:grid !important;
   grid-template-columns: repeat(7, 1fr) !important;
@@ -39,7 +40,7 @@ body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI"
   width:100% !important;
 }
 
-/* Day cells (buttons) */
+/* Day cell buttons */
 .day{
   display:flex !important; flex-direction:column !important; justify-content:space-between !important;
   appearance:none; -webkit-appearance:none;
@@ -51,7 +52,7 @@ body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI"
 .day.muted{ opacity:.55; }
 .day:focus{ outline:3px solid rgb(10 132 255 / .35); outline-offset:2px; }
 
-/* Inside the day */
+/* Inside */
 .num,.day-num{ font-weight:800; font-size:15px; color:#2c6bed; }
 .signup,.signup-name{
   margin-top:4px; font-weight:800; color:var(--ok);
@@ -60,14 +61,14 @@ body{ margin:0; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI"
   font-size:14px;
 }
 
-/* Form (unchanged) */
+/* Form bits */
 .signup-form{ margin-top:10px; display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
-.name-input{ flex:1 1 220px; padding:12px; font-size:16px; border-radius:10px; border:1px solid:var(--line); }
+.name-input{ flex:1 1 220px; padding:12px; font-size:16px; border-radius:10px; border:1px solid var(--line); }
 .submit-btn{ padding:12px 16px; font-size:16px; border-radius:10px; border:1px solid var(--line); background:#fff; }
 .selected-label{ font-weight:700; }
 .hint{ color:var(--muted); margin:0; }
 
-/* Smaller text on small phones */
+/* Responsive tweaks */
 @media (max-width: 600px){
   :root{ --gap:8px; }
   .signup,.signup-name{ font-size:13px; }
